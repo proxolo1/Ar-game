@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.7.1/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+  <script src="./aframe-physics/dist/aframe-physics-system.js"></script>
+  <script src="https://mixedreality.mozilla.org/ammo.js/builds/ammo.wasm.js"></script>
+</head>
+
+<body>
+  <a-scene id="myScene" physics="gravity: -9.8;">
+    <a-entity environment="preset:japan;"></a-entity>
+    <a-assets>
+      <a-asset-item id="tree-obj" src="./assets/bin.obj"></a-asset-item>
+      <a-asset-item id="bin2" src="./assets/uploads_files_3979432_Bin.obj"></a-asset-item>
+      <a-asset-item id="waste-bag" src="./assets/uploads_files_3970633_garbagebag.obj"></a-asset-item>
+    </a-assets>
+    <a-plane id="floor" static-body height="1000" width="1000" position="0 -0.02 0" color="black" rotation="-90 0 0">
+    </a-plane>
+    <a-camera id="myCamera" position="0 1 20">
+      <a-cursor intersection-spawn="event: click; mixin: voxel"></a-cursor>
+    </a-camera>
+    <a-entity static-body id="wasteBin" obj-model="obj: #bin2" position="2 0 -10" material="color:yellow" scale="2 2 2"></a-entity>
+    <a-plane static-body id="wasteBinPlane" width=".8" height="0.5" class="target" color="green" rotation="0 0 0" position="2 1.4 -9.5">
+    </a-plane>
+    <!-- <a-entity static-body obj-model="obj: #bin2" position="-2 0 -10" material="color:red" scale="2 2 2">
+    </a-entity> -->
+    <a-entity text="value: BEST OF US _ 2022; color: red ; font: exo2bold;" position="0 5 12" scale="20 20 20">
+    </a-entity>
+    <a-plane width="2" height="2" color="green" rotation="-90 0 0" position="0 .4 12"></a-plane>
+    <a-entity text="value: points : 0 ; color: red ; font: exo2bold;" id="points" position="20 10 -10" scale="30 30 30" rotation="0 -45 0">
+    </a-entity>
+    <a-entity text="value: Time :30 s ; color: red ; font: exo2bold;" id="time" position="0 10 -22" scale="30 30 30" rotation="0 45 0">
+    </a-entity>
+  </a-scene>
+</body>
+<script src="script.js"></script>
+
+</html>
