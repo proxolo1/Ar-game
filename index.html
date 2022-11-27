@@ -18,7 +18,7 @@
     </a-assets>
     <a-plane id="floor" static-body height="1000" width="1000" position="0 -0.02 0" color="black" rotation="-90 0 0">
     </a-plane>
-    <a-camera id="myCamera" position="0 1 20">
+    <a-camera id="myCamera" position="0 1 20" look-controls="false">
       <a-cursor intersection-spawn="event: click; mixin: voxel"></a-cursor>
     </a-camera>
     <a-entity static-body id="wasteBin" obj-model="obj: #bin2" position="2 0 -10" material="color:yellow" scale="2 2 2">
@@ -30,17 +30,23 @@
     </a-entity> -->
     <!-- <a-entity text="value: BEST OF US _ 2022; color: red ; font: exo2bold;" position="-9 5 12" scale="10 10 10" rotation="-90 0 0">
     </a-entity> -->
-    <a-plane width="2" height="2" color="red" rotation="-90 0 0" position="0 .4 12">
+    <a-plane width="20" height="2" color="green" rotation="-90 0 0" position="0 .4 12">
 
     </a-plane>
     <a-text text="value:start here" scale="3 3 3" position="-1.4 1 11"></a-text>
-    <a-entity geometry="primitive: plane; width:3; height:3;" material="color: black"  text="value:INSTRUCTION\n\n click space for throw trash \n\n w/arrow_up --> move forward\n\n s/arrow_down --> move downward\n\n a/arrow_left --> move left \n\n d/arrow_right --> move right; align:center;color:red;width:4" rotation="0 -60 0" position="7 4 14"></a-entity>
+    <a-entity geometry="primitive: plane; width:3; height:3;" material="color: black"  text="value:INSTRUCTION\n\n Double tap for navigation\n\n click space for throw trash \n\n w/arrow_up --> move forward\n\n s/arrow_down --> move downward\n\n a/arrow_left --> move left \n\n d/arrow_right --> move right; align:center;color:red;width:4" rotation="0 -60 0" position="7 4 14"></a-entity>
     <a-entity text="value: points : 0 ; color: white ; font: exo2bold;" id="points" position="20 10 -10"
       scale="30 30 30">
     </a-entity>
     <a-entity text="value: Time :90 s ; color: white ; font: exo2bold;" id="time" position="-10 12 -22" scale="30 30 30"
       rotation="0 45 0">
     </a-entity>
+    <a-entity text="value: Technology Service team || Recycle; color: white ; font: exo2bold;" position="100 30 -60" scale="50 50 50"
+    rotation="0 0 0">
+  </a-entity>
+  <a-entity text="value:High Score : 25 points; color: white ; font: exo2bold;" position="-100 30 -60" scale="50 50 50"
+    rotation="0 0 0">
+  </a-entity>
   </a-scene>
 </body>
 <script src="script.js"></script>

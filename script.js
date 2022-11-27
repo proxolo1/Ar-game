@@ -54,32 +54,31 @@
 //     myCamera.setAttribute('position', { x: pos.x, y: 2, z: pos.z });
 //   }
 // };
-
-document.addEventListener("keydown",(event)=>{
-    if(event.code==="Space"){
-      // startTime();
-      shootWaste();
-    }
+let gameOver=false;
+document.addEventListener("keydown", (event) => {
+  let cameraPos = myCamera.getAttribute("position");
+  if (event.code === "Space" && cameraPos.z < 14 && cameraPos.z > 10 && !gameOver) {
+    shootWaste();
+  }
 });
-let score=1;
-let interval=null;
-function shootWaste(){
-  const waste=document.createElement("a-entity");
-  let camera_position=myCamera.getAttribute("position");
-  waste.setAttribute("position",camera_position);
-  waste.setAttribute("velocity",getDirection(myCamera,20));
-  waste.setAttribute("dyanmic-body",true);
-  waste.setAttribute("obj-model","obj: #waste-bag");
-  waste.setAttribute("material","color:green");
-  waste.setAttribute("dynamic-body","mass:100")
+let score = 1;
+let interval = null;
+function shootWaste() {
+  const waste = document.createElement("a-entity");
+  let camera_position = myCamera.getAttribute("position");
+  waste.setAttribute("position", camera_position);
+  waste.setAttribute("velocity", getDirection(myCamera, 20));
+  waste.setAttribute("dyanmic-body", true);
+  waste.setAttribute("obj-model", "obj: #waste-bag");
+  waste.setAttribute("material", "color:green");
+  waste.setAttribute("dynamic-body", "mass:100")
   myScene.appendChild(waste);
-  waste.addEventListener("collide",wasteCollideBin);
+  waste.addEventListener("collide", wasteCollideBin);
   startTime();
 }
-function wasteCollideBin(event){
-  if(event.detail.body.el.className=="target"){
-    console.log(event.detail.body.el.className)
-    points.setAttribute("text",`value: points : ${score++}`)
+function wasteCollideBin(event) {
+  if (event.detail.body.el.className == "target") {
+    points.setAttribute("text", `value: points : ${score++}`)
     myScene.removeChild(event.detail.target.el);
     event.detail.target.el.removeEventListener('collide', wasteCollideBin);
     changeBinPosition();
@@ -96,43 +95,44 @@ function getDirection(camera, speed) {
   var moveZRatio = (Math.pow(moveZ, 2)) / (Math.pow(moveX, 2) + Math.pow(moveZ, 2));
 
   if (moveX <= 0) {
-      moveX = -Math.sqrt((1 - Math.pow(moveY, 2)) * moveXRatio);
+    moveX = -Math.sqrt((1 - Math.pow(moveY, 2)) * moveXRatio);
   } else {
-      moveX = Math.sqrt((1 - Math.pow(moveY, 2)) * moveXRatio);
+    moveX = Math.sqrt((1 - Math.pow(moveY, 2)) * moveXRatio);
   }
 
   if (moveZ <= 0) {
-      moveZ = -Math.sqrt((1 - Math.pow(moveY, 2)) * moveZRatio);
+    moveZ = -Math.sqrt((1 - Math.pow(moveY, 2)) * moveZRatio);
   } else {
-      moveZ = Math.sqrt((1 - Math.pow(moveY, 2)) * moveZRatio);
+    moveZ = Math.sqrt((1 - Math.pow(moveY, 2)) * moveZRatio);
   }
 
   return { x: moveX * speed, y: moveY * speed, z: -moveZ * speed };
 }
-function changeBinPosition(){
-  let x=Math.floor(Math.random()*10);
-  let z=-Math.floor(Math.random()*10);
- let wasteBinPosition=wasteBin.getAttribute("position");
- let wasteBinPlanePos=wasteBinPlane.getAttribute("position");
- wasteBinPosition.x=x;
- wasteBinPosition.z=z;
- wasteBinPlanePos.x=x;
- wasteBinPlanePos.z=z+0.5;
- console.log(wasteBinPosition)
- wasteBin.setAttribute("position",wasteBinPosition);
- wasteBinPlane.setAttribute("position",wasteBinPlanePos);
+function changeBinPosition() {
+  let x = Math.floor(Math.random() * 10);
+  let z = -Math.floor(Math.random() * 10);
+  let wasteBinPosition = wasteBin.getAttribute("position");
+  let wasteBinPlanePos = wasteBinPlane.getAttribute("position");
+  wasteBinPosition.x = x;
+  wasteBinPosition.z = z;
+  wasteBinPlanePos.x = x;
+  wasteBinPlanePos.z = z + 0.5;
+  console.log(wasteBinPosition)
+  wasteBin.setAttribute("position", wasteBinPosition);
+  wasteBinPlane.setAttribute("position", wasteBinPlanePos);
 }
-let seconds=90;
-function startTime(){
-if(!interval){
-  interval= setInterval(()=>{
-    time.setAttribute("text",`value: Time : ${seconds} s`)
-    seconds--;
-    if(seconds==0){
-      clearInterval(interval);
-      alert("game over")
-    }
-  },1000)
-}
- 
+let seconds = 90;
+function startTime() {
+  if (!interval) {
+    interval = setInterval(() => {
+      time.setAttribute("text", `value: Time : ${--seconds} s`)
+      if (seconds == 0) {
+        clearInterval(interval);
+        alert("game over 🤣");
+        gameOver=true;
+      }
+      
+    }, 1000)
+  }
+
 }
