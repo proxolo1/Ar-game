@@ -62,6 +62,7 @@ document.addEventListener("keydown",(event)=>{
     }
 });
 let score=1;
+let interval=null;
 function shootWaste(){
   const waste=document.createElement("a-entity");
   let camera_position=myCamera.getAttribute("position");
@@ -69,10 +70,11 @@ function shootWaste(){
   waste.setAttribute("velocity",getDirection(myCamera,20));
   waste.setAttribute("dyanmic-body",true);
   waste.setAttribute("obj-model","obj: #waste-bag");
-  waste.setAttribute("material","color:black");
+  waste.setAttribute("material","color:green");
   waste.setAttribute("dynamic-body","mass:100")
   myScene.appendChild(waste);
-  waste.addEventListener("collide",wasteCollideBin)
+  waste.addEventListener("collide",wasteCollideBin);
+  startTime();
 }
 function wasteCollideBin(event){
   if(event.detail.body.el.className=="target"){
@@ -120,9 +122,17 @@ function changeBinPosition(){
  wasteBin.setAttribute("position",wasteBinPosition);
  wasteBinPlane.setAttribute("position",wasteBinPlanePos);
 }
-// let seconds=15;
-// function startTime(){
-//   setInterval(()=>{
-//     time.setAttribute("text",`value: Time : ${seconds--} s`)
-//   },1000)
-// }
+let seconds=90;
+function startTime(){
+if(!interval){
+  interval= setInterval(()=>{
+    time.setAttribute("text",`value: Time : ${seconds} s`)
+    seconds--;
+    if(seconds==0){
+      clearInterval(interval);
+      alert("game over")
+    }
+  },1000)
+}
+ 
+}
